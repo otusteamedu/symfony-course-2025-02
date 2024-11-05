@@ -50,6 +50,8 @@ class FeedServiceCest
         }
         /** @var FeedService $feedService */
         $feedService = $I->grabService(FeedService::class);
+        $I->clearEntityManager();
+        $follower = $I->grabEntityFromRepository(PhoneUser::class, ['id' => $follower->getId()]);
 
         $feed = $feedService->getFeedWithoutMaterialization($follower, $example['tweetsCount']);
 
