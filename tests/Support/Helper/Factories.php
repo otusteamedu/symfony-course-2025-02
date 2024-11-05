@@ -3,6 +3,8 @@
 namespace Support\Helper;
 
 use App\Domain\Entity\PhoneUser;
+use App\Domain\Entity\Subscription;
+use App\Domain\Entity\Tweet;
 use Codeception\Module;
 use Codeception\Module\DataFactory;
 use League\FactoryMuffin\Faker\Facade;
@@ -25,5 +27,12 @@ class Factories extends Module
                 'phone' => '+0'.Facade::randomNumber(9, true)(),
             ]
         );
+        $factory->_define(
+            Tweet::class,
+            [
+                'text' => Facade::text(100),
+            ]
+        );
+        $factory->_define(Subscription::class, []);
     }
 }
