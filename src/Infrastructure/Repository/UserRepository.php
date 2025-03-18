@@ -126,4 +126,28 @@ class UserRepository extends AbstractRepository
 
         return $queryBuilder->executeQuery()->fetchAllAssociative();
     }
+
+    public function remove(User $user): void
+    {
+        $user->setDeletedAt();
+        $this->flush();
+    }
+
+    public function removeInFuture(User $user, \DateInterval $dateInterval): void
+    {
+        $user->setDeletedAtInFuture($dateInterval);
+        $this->flush();
+    }
+
+    /**
+     * @return User[]
+     */
+    public function findUsersByLoginWithDeleted(string $name): array
+    {
+        $filters = $this->entityManager->getFilters();
+        if ($filters->isEnabled('soft_delete_filter')) {
+            $filters->disable('soft_delete_filter');
+        }
+        return $this->entityManager->getRepository(User::class)->findBy(['login' => $name]);
+    }
 }
