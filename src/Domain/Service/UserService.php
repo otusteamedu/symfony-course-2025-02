@@ -5,7 +5,6 @@ namespace App\Domain\Service;
 use App\Domain\Entity\EmailUser;
 use App\Domain\Entity\PhoneUser;
 use App\Domain\Entity\User;
-use App\Domain\Event\CreateUserEvent;
 use App\Domain\Event\UserIsCreatedEvent;
 use App\Domain\Model\CreateUserModel;
 use App\Domain\ValueObject\CommunicationChannelEnum;
@@ -34,7 +33,9 @@ class UserService
         $user->setAge($createUserModel->age);
         $user->setIsActive($createUserModel->isActive);
         $user->setRoles($createUserModel->roles);
+
         $this->userRepository->create($user);
+
         $this->eventDispatcher->dispatch(new UserIsCreatedEvent($user->getId(), $user->getLogin()));
 
         return $user;
