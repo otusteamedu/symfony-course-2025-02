@@ -48,7 +48,14 @@ RUN pecl channel-update pecl.php.net \
         memcached \
         redis \
         event \
+        xdebug \
     && rm -rf /tmp/pear \
-    && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini \
+    && docker-php-ext-enable xdebug
+RUN echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini \
     && echo "extension=event.so" > /usr/local/etc/php/conf.d/event.ini \
-    && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/memcached.ini
+    && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/memcached.ini \
+    && echo "xdebug.mode=debug,coverage" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.start_with_request=no" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/xdebug.ini
