@@ -17,6 +17,12 @@
         <ini name="display_errors" value="1" />
         <ini name="error_reporting" value="-1" />
         <server name="APP_ENV" value="test" force="true" />
+
+        <!-- ###+ symfony/lock ### -->
+        <!-- Choose one of the stores below -->
+        <!-- postgresql+advisory://db_user:db_password@localhost/db_name -->
+        <env name="LOCK_DSN" value="flock"/>
+        <!-- ###- symfony/lock ### -->
     </php>
 
     <testsuites>
