@@ -24,6 +24,7 @@
         "symfony/form": "7.1.*",
         "symfony/framework-bundle": "7.1.*",
         "symfony/http-client": "7.1.*",
+        "symfony/lock": "7.1.*",
         "symfony/monolog-bundle": "*",
         "symfony/property-access": "7.1.*",
         "symfony/property-info": "7.1.*",
@@ -86,6 +87,7 @@
         }
     },
     "require-dev": {
+        "mockery/mockery": "^1.6",
         "phpunit/phpunit": "^12.1.5",
         "symfony/maker-bundle": "^1.61"
     }
