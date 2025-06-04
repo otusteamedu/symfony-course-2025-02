@@ -99,11 +99,9 @@ services:
     App\Domain\Repository\TweetRepositoryInterface:
         alias: App\Infrastructure\Repository\TweetRepositoryCacheDecorator
 
-    App\Infrastructure\Storage\MetricsStorage:
-        arguments:
-            - graphite
-            - 8125
-            - my_app
+    App\Infrastructure\LoggingMetricsStorage: ~
+
+    statsd.metrics_storage: '@App\Infrastructure\LoggingMetricsStorage'
 
     redis_client:
         class: Redis
