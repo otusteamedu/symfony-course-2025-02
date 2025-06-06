@@ -99,9 +99,9 @@ services:
     App\Domain\Repository\TweetRepositoryInterface:
         alias: App\Infrastructure\Repository\TweetRepositoryCacheDecorator
 
-    App\Infrastructure\LoggingMetricsStorage: ~
-
-    statsd.metrics_storage: '@App\Infrastructure\LoggingMetricsStorage'
+    App\Infrastructure\LoggingMetricsStorage:
+        arguments:
+            $metricsStorage: 'statsd.metrics_storage'
 
     redis_client:
         class: Redis
