@@ -26,6 +26,8 @@ RUN apk update \
         postgresql-dev \
         linux-headers \
         libmemcached-dev \
+        rabbitmq-c \
+        rabbitmq-c-dev \
         curl \
         wget \
         bash
@@ -45,17 +47,12 @@ RUN docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) \
     zip
 RUN pecl channel-update pecl.php.net \
     && pecl install -o -f \
+        amqp \
         memcached \
         redis \
         event \
-        xdebug \
     && rm -rf /tmp/pear \
-    && docker-php-ext-enable xdebug
-RUN echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini \
+    && echo "extension=amqp.so" > /usr/local/etc/php/conf.d/amqp.ini \
+    && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini \
     && echo "extension=event.so" > /usr/local/etc/php/conf.d/event.ini \
-    && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/memcached.ini \
-    && echo "xdebug.mode=debug,coverage" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.start_with_request=no" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/xdebug.ini
+    && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/memcached.ini
